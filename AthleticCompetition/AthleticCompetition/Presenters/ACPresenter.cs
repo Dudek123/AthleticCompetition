@@ -14,6 +14,18 @@ namespace AthleticCompetition.Presenters
         {
             this.model = model;
             this.view = view;
+            view.SaveDiscipline += saveDiscipline;
+            view.SaveCompetition += saveCompetition;
+        }
+
+        private bool saveCompetition(string name, string location, string date)
+        {
+            return model.SaveCompetition(name, location, date);
+        }
+
+        private bool saveDiscipline(string name, List<string> players, List<string> results)
+        {
+            return model.SaveDiscipline(name, players, results);
         }
     }
 }

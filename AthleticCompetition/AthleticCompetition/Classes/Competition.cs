@@ -30,5 +30,6 @@ namespace AthleticCompetition.Classes
         {
             disciplines.Add(discipline);
         }
+
     }
 }

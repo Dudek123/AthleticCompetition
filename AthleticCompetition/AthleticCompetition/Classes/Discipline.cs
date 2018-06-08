@@ -10,7 +10,7 @@ namespace AthleticCompetition.Classes
     {
         public string DisciplineName { get; set; }
         private List<Result> results = new List<Result>();
-        public List<Result> Result { get { return results; } set { results = value; } }
+        public List<Result> Results { get { return results; } set { results = value; } }
 
         public Discipline(string disciplineName)
         {

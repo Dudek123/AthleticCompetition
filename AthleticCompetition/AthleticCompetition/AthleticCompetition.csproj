@@ -61,6 +61,12 @@
     <Compile Include="Controls\ResultControl.Designer.cs">
       <DependentUpon>ResultControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TimeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TimeControl.Designer.cs">
+      <DependentUpon>TimeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ACModel.cs" />
     <Compile Include="Presenters\ACPresenter.cs" />
     <Compile Include="Program.cs" />
@@ -77,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ResultControl.resx">
       <DependentUpon>ResultControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TimeControl.resx">
+      <DependentUpon>TimeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
