@@ -1,10 +1,12 @@
 ﻿using AthleticCompetition.Classes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.XPath;
 
 namespace AthleticCompetition.Models
 {
@@ -92,7 +94,7 @@ namespace AthleticCompetition.Models
                     {
                         writer.WriteStartElement("Result");
                         writer.WriteElementString("Player", r.Player);
-                        writer.WriteElementString("Result", r.PlayerResult);
+                        writer.WriteElementString("PlayerResult", r.PlayerResult);
                         writer.WriteEndElement();
                     }
 
@@ -104,6 +106,80 @@ namespace AthleticCompetition.Models
             }
 
             return true;
+        }
+
+        public bool LoadCompetition(string path)
+        {
+            competition.ClearCompetition();
+
+            XmlDocument document = new XmlDocument();
+
+            try
+            {
+                document.Load(path);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            XPathNavigator navigator = document.CreateNavigator();
+            XPathNodeIterator disciplines = navigator.Select("/Competition/Discipline");
+
+            XPathNavigator competitionName = navigator.SelectSingleNode("/Competition/CompetitionName");
+            competition.CompetitionName = competitionName.Value;
+
+            XPathNavigator competitionLocation = navigator.SelectSingleNode("/Competition/CompetitionLocation");
+            competition.CompetitionLocation = competitionLocation.Value;
+
+            XPathNavigator competitionDate = navigator.SelectSingleNode("/Competition/CompetitionDate");
+            competition.CompetitionDate = competitionDate.Value;
+
+            foreach (XPathNavigator d in disciplines)
+            {
+                XPathNavigator nav = d.SelectSingleNode("DisciplineName");
+                Discipline disc = new Discipline(nav.Value);
+
+                XPathNodeIterator results = d.Select("Result");
+
+                foreach (XPathNavigator r in results)
+                {
+                    XPathNavigator nav2 = r.SelectSingleNode("Player");
+                    XPathNavigator nav3 = r.SelectSingleNode("PlayerResult");
+ 
+                    Result res = new Result(nav2.Value, nav3.Value);
+
+                    disc.AddResult(res);
+                }
+                competition.AddDiscipline(disc);
+            }
+            Console.WriteLine("Odczytałem z pliku dane");
+            return true;
+        }
+
+        public string[] GetXMLFiles()
+        {
+            return Directory.GetFiles(Directory.GetCurrentDirectory().ToString(), "*.xml");
+        }
+
+        public bool ClearCompetition()
+        {
+            competition.ClearCompetition();
+            return true;
+        }
+
+        public List<string> GetCompetitionInfos()
+        {
+            List<string> lista = new List<string>();
+            lista.Add(competition.CompetitionName);
+            lista.Add(competition.CompetitionLocation);
+            lista.Add(competition.CompetitionDate);
+            return lista;
+        }
+
+        public Discipline GetDiscipline(int number)
+        {
+            return competition.GetDiscipline(number);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AthleticCompetition.Classes;
 
 namespace AthleticCompetition.Presenters
 {
@@ -16,6 +17,36 @@ namespace AthleticCompetition.Presenters
             this.view = view;
             view.SaveDiscipline += saveDiscipline;
             view.SaveCompetition += saveCompetition;
+            view.LoadCompetition += loadCompetition;
+            view.GetXMLFiles += getXMLFiles;
+            view.ClearCompetition += clearCompetition;
+            view.GetCompetitionInfos += getCompetitionInfos;
+            view.GetDiscipline += getDiscipline;
+        }
+
+        private Discipline getDiscipline(int number)
+        {
+            return model.GetDiscipline(number);
+        }
+
+        private List<string> getCompetitionInfos()
+        {
+            return model.GetCompetitionInfos();
+        }
+
+        private bool clearCompetition()
+        {
+            return model.ClearCompetition();
+        }
+
+        private string[] getXMLFiles()
+        {
+            return model.GetXMLFiles();
+        }
+
+        private bool loadCompetition(string path)
+        {
+            return model.LoadCompetition(path);
         }
 
         private bool saveCompetition(string name, string location, string date)

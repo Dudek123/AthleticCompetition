@@ -12,7 +12,17 @@ namespace AthleticCompetition.Controls
 {
     public partial class DisciplineControl : UserControl
     {
-        public string DisciplineName { get { return comboBoxDisciplineName.SelectedItem?.ToString(); } }
+        public string DisciplineName
+        {
+            get
+            {
+                return comboBoxDisciplineName.SelectedItem?.ToString();
+            }
+            set
+            {
+                comboBoxDisciplineName.SelectedItem = value;
+            }
+        }
 
         private List<string> playersList = new List<string>();
         public List<string> PlayersList

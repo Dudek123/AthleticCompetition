@@ -31,5 +31,17 @@ namespace AthleticCompetition.Classes
             disciplines.Add(discipline);
         }
 
+        public void ClearCompetition()
+        {
+            disciplines.Clear();
+            CompetitionName = string.Empty;
+            CompetitionLocation = string.Empty;
+            CompetitionDate = string.Empty;
+        }
+
+        public Discipline GetDiscipline(int number)
+        {
+            return disciplines[number];
+        }
     }
 }

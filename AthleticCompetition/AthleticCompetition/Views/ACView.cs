@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AthleticCompetition.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,9 +14,21 @@ namespace AthleticCompetition.Views
 {
     public partial class ACView : Form, Views.IACView
     {
-        public string CompetitionName { get { return textBoxName.Text.ToString(); } }
-        public string CompetitionLocation { get { return textBoxLocation.Text.ToString(); } }
-        public string CompetitionDate { get { return dateTimePickerDate.Value.ToShortDateString(); } }
+        public string CompetitionName { get { return textBoxName.Text.ToString(); } set { textBoxName.Text = value; } }
+        public string CompetitionLocation { get { return textBoxLocation.Text.ToString(); } set { textBoxLocation.Text = value; } }
+        public string CompetitionDate
+        {
+            get
+            {
+                return dateTimePickerDate.Value.ToShortDateString();
+            }
+            set
+            {
+                dateTimePickerDate.Value = DateTime.Parse(value);
+            }
+        }
+
+
         public ACView()
         {
             InitializeComponent();
@@ -24,6 +37,11 @@ namespace AthleticCompetition.Views
 
         public event Func<string, List<string>, List<string>, bool> SaveDiscipline;
         public event Func<string, string, string, bool> SaveCompetition;
+        public event Func<string, bool> LoadCompetition;
+        public event Func<string[]> GetXMLFiles;
+        public event Func<bool> ClearCompetition;
+        public event Func<List<string>> GetCompetitionInfos;
+        public event Func<int, Discipline> GetDiscipline;
 
         private void saveDiscipline_Click(object sender, EventArgs e)
         {
@@ -48,13 +66,56 @@ namespace AthleticCompetition.Views
 
         private void ACView_Load(object sender, EventArgs e)
         {
-            string[] xmlFiles = Directory.GetFiles(Directory.GetCurrentDirectory().ToString(),"*.xml");
+        
+            toolStripComboBoxTryb.SelectedItem = toolStripComboBoxTryb.Items[0];
 
-            for(int i = 0; i < xmlFiles.Length; i++)
+        }
+
+        private void toolStripComboBoxTryb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(toolStripComboBoxTryb.SelectedIndex == 1)
+            {
+                buttonPrevDisc.Visible = true;
+                buttonNextDisc.Visible = true;
+                comboBoxCompetitions.Visible = true;
+            }
+            else
+            {
+                buttonPrevDisc.Visible = false;
+                buttonNextDisc.Visible = false;
+                comboBoxCompetitions.Visible = false;
+                ClearCompetition();
+            }
+        }
+
+        private void comboBoxCompetitions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(LoadCompetition(Path.Combine(Directory.GetCurrentDirectory(),comboBoxCompetitions.SelectedItem.ToString())))
+            {
+                Console.WriteLine("wczytałem sobie");
+            }
+        }
+
+        private void comboBoxCompetitions_DropDown(object sender, EventArgs e)
+        {
+            var xmlFiles = GetXMLFiles();
+            comboBoxCompetitions.Items.Clear();
+            for (int i = 0; i < xmlFiles.Length; i++)
             {
                 comboBoxCompetitions.Items.Add(Path.GetFileName(xmlFiles[i]));
             }
+        }
 
+        private void buttonLoadCompetition_Click(object sender, EventArgs e)
+        {
+            var compInfos = GetCompetitionInfos();
+            CompetitionName = compInfos[0];
+            CompetitionLocation = compInfos[1];
+            CompetitionDate = compInfos[2];
+
+            var disc = GetDiscipline(0);
+            disciplineControl1.DisciplineName = disc.DisciplineName;
+            
         }
     }
 }
