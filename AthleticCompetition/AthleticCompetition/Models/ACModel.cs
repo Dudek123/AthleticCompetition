@@ -21,7 +21,26 @@ namespace AthleticCompetition.Models
 
         public bool SaveDiscipline(string name, List<string> players, List<string> results)
         {
-            Discipline newDiscipline = new Discipline();
+            if (name == null)
+            {
+                Console.WriteLine("Wybierz dyscyplinę");
+                return false;
+            }
+            
+            foreach(var a in players)
+            {
+                if (a == string.Empty)
+                    return false;
+            }
+
+            foreach (var a in results)
+            {
+                if (a == string.Empty)
+                    return false;
+            }
+
+
+            Discipline newDiscipline = new Discipline(name);
             for(int i = 0; i < players.Count; i++)
             {
                 Result newResult = new Result(players[i], results[i]);
@@ -33,6 +52,11 @@ namespace AthleticCompetition.Models
 
         public bool SaveCompetition(string name, string location, string date)
         {
+            if (name == "" || location == "")
+            {
+                return false;
+            }
+                
             competition.CompetitionName = name;
             competition.CompetitionLocation = location;
             competition.CompetitionDate = date;

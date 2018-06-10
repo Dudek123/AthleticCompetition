@@ -18,6 +18,12 @@ namespace AthleticCompetition.Controls
         {
             get
             {
+                if (checkBoxDNF.Checked)
+                    return "DNF";
+                if (checkBoxDNS.Checked)
+                    return "DNS";
+                if (checkBoxDQ.Checked)
+                    return "DQ";
                 if (IsTime == false)
                     return textBoxResult.Text.ToString();
                 else
@@ -55,6 +61,35 @@ namespace AthleticCompetition.Controls
             }
         }
 
+        public bool NotResult
+        {
+            get
+            {
+                if (checkBoxDNF.Checked || checkBoxDNS.Checked || checkBoxDQ.Checked)
+                {
+                    Console.WriteLine("fdfsf");
+                    return true;   
+                }
+                else
+                    return false;
+            }
+            set
+            {
+                textBoxResult.Text = "";
+                textBoxResult.Enabled = true;
+                checkBoxDNF.Enabled = true;
+                checkBoxDNF.Checked = false;
+                checkBoxDNS.Enabled = true;
+                checkBoxDNS.Checked = false;
+                checkBoxDQ.Enabled = true;
+                checkBoxDQ.Checked = false;
+                timeControl1.Hours = "0";
+                timeControl1.Minutes = "0";
+                timeControl1.Seconds = "0";
+                timeControl1.Hundredths = "0";
+            }
+        }
+
         public EventHandler textBoxResultLeave;
         public ResultControl()
         {
@@ -82,6 +117,96 @@ namespace AthleticCompetition.Controls
             {
                 textBoxPlayer.Text = "";
             }
+        }
+
+        private void checkBoxDNF_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBoxDNF.Checked == true)
+            {
+                checkBoxDNS.Enabled = false;
+                checkBoxDQ.Enabled = false;
+
+                if (timeControl1.Visible == true)
+                {
+                    timeControl1.Enabled = false;
+                }    
+                else
+                    textBoxResult.Enabled = false;               
+            }
+            else
+            {
+                checkBoxDNS.Enabled = true;
+                checkBoxDQ.Enabled = true;
+
+                if (timeControl1.Visible == true)
+                {
+                    timeControl1.Enabled = true;
+                }
+                else
+                    textBoxResult.Enabled = true;
+            }
+            
+        }
+
+        private void checkBoxDNS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxDNS.Checked == true)
+            {
+                checkBoxDNF.Enabled = false;
+                checkBoxDQ.Enabled = false;
+
+                if (timeControl1.Visible == true)
+                {
+                    timeControl1.Enabled = false;
+                }
+                else
+                    textBoxResult.Enabled = false;
+            }
+            else
+            {
+                checkBoxDNF.Enabled = true;
+                checkBoxDQ.Enabled = true;
+
+                if (timeControl1.Visible == true)
+                {
+                    timeControl1.Enabled = true;
+                }
+                else
+                    textBoxResult.Enabled = true;
+            }
+        }
+
+        private void checkBoxDQ_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxDQ.Checked == true)
+            {
+                checkBoxDNF.Enabled = false;
+                checkBoxDNS.Enabled = false;
+
+                if (timeControl1.Visible == true)
+                {
+                    timeControl1.Enabled = false;
+                }
+                else
+                    textBoxResult.Enabled = false;
+            }
+            else
+            {
+                checkBoxDNF.Enabled = true;
+                checkBoxDNS.Enabled = true;
+
+                if (timeControl1.Visible == true)
+                {
+                    timeControl1.Enabled = true;
+                }
+                else
+                    textBoxResult.Enabled = true;
+            }
+        }
+
+        private void ResultControl_Load(object sender, EventArgs e)
+        {
+            //textBoxResult.Enabled = true;
         }
     }
 }

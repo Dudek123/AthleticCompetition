@@ -114,26 +114,26 @@ namespace AthleticCompetition.Controls
 
         private void comboBoxMeasureUnit_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxMeasureUnit.SelectedIndex == 0 || comboBoxMeasureUnit.SelectedIndex == 2) //metry i punkty
+            for(int i = 0; i < resultsCounter; i++)
             {
-                showTimeLabels(false);
-                for (int i = 0; i < resultsCounter; i++)
-                {
-                    resultControls[i].IsTime = false;
-                    if (resultControls[i].PlayerResult != "")
-                    {
-                        int a = resultControls[i].PlayerResult.ToString().LastIndexOf(' ');
-                        resultControls[i].PlayerResult = resultControls[i].PlayerResult.Remove(a, resultControls[i].PlayerResult.Length - a) + " " + comboBoxMeasureUnit.SelectedItem.ToString();
-                    }
-
-                }
+                 resultControls[i].NotResult = false;
             }
-            else //czas
+            
+            if (comboBoxMeasureUnit.SelectedIndex == 1 ) 
             {
                 showTimeLabels(true);
                 for (int i = 0; i < resultsCounter; i++)
                 {
                     resultControls[i].IsTime = true;
+                }
+
+            }
+            else 
+            {
+                showTimeLabels(false);
+                for (int i = 0; i < resultsCounter; i++)
+                {
+                    resultControls[i].IsTime = false;
                 }
             }
             
@@ -152,12 +152,17 @@ namespace AthleticCompetition.Controls
             if (this.SaveDisciplineButtonClick != null)
             {
                 this.SaveDisciplineButtonClick(this, e);
+
+                for (int i = 0; i < resultsCounter; i++)
+                {
+                    resultControls[i].NotResult = false;
+                }
             }
         }
 
         private void comboBoxDisciplineName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PlayersList = new List<string>();
+            PlayersList = new List<string>();      
         }
     }
 }

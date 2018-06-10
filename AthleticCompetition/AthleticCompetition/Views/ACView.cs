@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace AthleticCompetition.Views
     {
         public string CompetitionName { get { return textBoxName.Text.ToString(); } }
         public string CompetitionLocation { get { return textBoxLocation.Text.ToString(); } }
-        public string CompetitionDate { get { return dateTimePickerDate.Value.ToString(); } }
+        public string CompetitionDate { get { return dateTimePickerDate.Value.ToShortDateString(); } }
         public ACView()
         {
             InitializeComponent();
@@ -29,16 +30,31 @@ namespace AthleticCompetition.Views
             if (SaveDiscipline(disciplineControl1.DisciplineName, disciplineControl1.PlayersList, disciplineControl1.PlayersResults))
             {
                 disciplineControl1.PlayersList = new List<string>();
-                Console.WriteLine("Zapisałem dyscyplinę do klasy");
+                MessageBox.Show("Dyscyplina zapisana pomyślnie do bazy", "Zapisano pomyślnie", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            else
+                MessageBox.Show("Brak wybranej dyscypliny, brak zawodnika lub brak wyniku","Błąd danych",MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void buttonSaveCompetition_Click(object sender, EventArgs e)
         {
             if (SaveCompetition(CompetitionName, CompetitionLocation, CompetitionDate))
             {
-                Console.WriteLine("Zapisałem plik XML");
+                MessageBox.Show("Zawody zapisane pomyślnie do pliku XML", "Zapisano pomyślnie", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            else
+                MessageBox.Show("Brak nazwy, miejsca lub dodanych dyscyplin", "Błąd danych", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void ACView_Load(object sender, EventArgs e)
+        {
+            string[] xmlFiles = Directory.GetFiles(Directory.GetCurrentDirectory().ToString(),"*.xml");
+
+            for(int i = 0; i < xmlFiles.Length; i++)
+            {
+                comboBoxCompetitions.Items.Add(Path.GetFileName(xmlFiles[i]));
+            }
+
         }
     }
 }

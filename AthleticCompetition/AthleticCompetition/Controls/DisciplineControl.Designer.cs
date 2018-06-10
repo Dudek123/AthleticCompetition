@@ -38,6 +38,9 @@
             this.labelSeconds = new System.Windows.Forms.Label();
             this.labelHounredths = new System.Windows.Forms.Label();
             this.buttonSaveDiscipline = new System.Windows.Forms.Button();
+            this.labelDNF = new System.Windows.Forms.Label();
+            this.labelDNS = new System.Windows.Forms.Label();
+            this.labelDQ = new System.Windows.Forms.Label();
             this.resultControl1 = new AthleticCompetition.Controls.ResultControl();
             this.SuspendLayout();
             // 
@@ -150,20 +153,52 @@
             this.buttonSaveDiscipline.UseVisualStyleBackColor = true;
             this.buttonSaveDiscipline.Click += new System.EventHandler(this.buttonSaveDiscipline_Click);
             // 
+            // labelDNF
+            // 
+            this.labelDNF.AutoSize = true;
+            this.labelDNF.Location = new System.Drawing.Point(444, 47);
+            this.labelDNF.Name = "labelDNF";
+            this.labelDNF.Size = new System.Drawing.Size(29, 13);
+            this.labelDNF.TabIndex = 12;
+            this.labelDNF.Text = "DNF";
+            // 
+            // labelDNS
+            // 
+            this.labelDNS.AutoSize = true;
+            this.labelDNS.Location = new System.Drawing.Point(473, 47);
+            this.labelDNS.Name = "labelDNS";
+            this.labelDNS.Size = new System.Drawing.Size(30, 13);
+            this.labelDNS.TabIndex = 13;
+            this.labelDNS.Text = "DNS";
+            // 
+            // labelDQ
+            // 
+            this.labelDQ.AutoSize = true;
+            this.labelDQ.Location = new System.Drawing.Point(507, 47);
+            this.labelDQ.Name = "labelDQ";
+            this.labelDQ.Size = new System.Drawing.Size(23, 13);
+            this.labelDQ.TabIndex = 14;
+            this.labelDQ.Text = "DQ";
+            // 
             // resultControl1
             // 
             this.resultControl1.IsTime = false;
             this.resultControl1.Location = new System.Drawing.Point(7, 63);
             this.resultControl1.Name = "resultControl1";
+            this.resultControl1.NotResult = true;
+            this.resultControl1.PlayerName = "";
             this.resultControl1.PlayerPlace = "1";
             this.resultControl1.PlayerResult = "";
-            this.resultControl1.Size = new System.Drawing.Size(449, 28);
+            this.resultControl1.Size = new System.Drawing.Size(527, 28);
             this.resultControl1.TabIndex = 0;
             // 
             // DisciplineControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelDQ);
+            this.Controls.Add(this.labelDNS);
+            this.Controls.Add(this.labelDNF);
             this.Controls.Add(this.buttonSaveDiscipline);
             this.Controls.Add(this.labelHounredths);
             this.Controls.Add(this.labelSeconds);
@@ -176,7 +211,7 @@
             this.Controls.Add(this.labelDisciplineName);
             this.Controls.Add(this.resultControl1);
             this.Name = "DisciplineControl";
-            this.Size = new System.Drawing.Size(473, 109);
+            this.Size = new System.Drawing.Size(536, 109);
             this.Load += new System.EventHandler(this.DisciplineControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -196,5 +231,8 @@
         private System.Windows.Forms.Label labelSeconds;
         private System.Windows.Forms.Label labelHounredths;
         private System.Windows.Forms.Button buttonSaveDiscipline;
+        private System.Windows.Forms.Label labelDNF;
+        private System.Windows.Forms.Label labelDNS;
+        private System.Windows.Forms.Label labelDQ;
     }
 }
