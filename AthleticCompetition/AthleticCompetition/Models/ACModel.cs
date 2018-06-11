@@ -181,5 +181,50 @@ namespace AthleticCompetition.Models
         {
             return competition.GetDiscipline(number);
         }
+
+        public List<string> GetDisciplinesNames()
+        {
+            List<string> lista = new List<string>();
+            foreach(var d in competition.Disciplines)
+            {
+                lista.Add(d.DisciplineName);
+            }
+            return lista;
+        }
+
+        public bool UpdateDiscipline(int number, string name, List<string> players, List<string> results)
+        {
+
+            if (name == null)
+            {
+                Console.WriteLine("Wybierz dyscyplinę");
+                return false;
+            }
+
+            foreach (var a in players)
+            {
+                if (a == string.Empty)
+                    return false;
+            }
+
+            foreach (var a in results)
+            {
+                if (a == string.Empty)
+                    return false;
+            }
+
+
+            Discipline newD = new Discipline(name);
+            for (int i = 0; i < players.Count; i++)
+            {
+                Result newResult = new Result(players[i], results[i]);
+                newD.AddResult(newResult);
+            }
+
+            competition.Disciplines[number] = null;
+            competition.Disciplines[number] = newD;
+
+            return true;
+        }
     }
 }

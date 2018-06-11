@@ -29,26 +29,35 @@ namespace AthleticCompetition.Controls
         {
             get
             {
-                for(int i = 0; i < resultsCounter; i++)
+                playersList.Clear();
+                for(int i = 0; i < 8; i++)
                 {
-                    playersList.Add(resultControls[i].PlayerName);
+                    if(resultControls[i].Visible == true)
+                        playersList.Add(resultControls[i].PlayerName);
                 }
                 return playersList;
             }
             set
             {
-                for (int i = 0; i < resultsCounter; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     //try
                     //{
+                    if(i < value.Count)
+                    {
+                        resultControls[i].Visible = true;
                         resultControls[i].PlayerName = value[i];
-                    //}
-                    //catch(Exception)
+                    }
+                    else  
+                        resultControls[i].Visible = false;
+                   // }
+                   // catch(Exception)
                     //{
-                     //   Console.WriteLine("Głupi catch, nie wiem po co xD");
-                    //}
+                    //    Console.WriteLine("Głupi catch, nie wiem po co xD");
+                   // }
                     
                 }
+                resultsCounter = value.Count;
             }
         }
 
@@ -57,19 +66,56 @@ namespace AthleticCompetition.Controls
         {
             get
             {
-                for (int i = 0; i < resultsCounter; i++)
+                playersResults.Clear();
+                for (int i = 0; i < 8; i++)
                 {
-                    playersResults.Add(resultControls[i].PlayerResult);
+                    if (resultControls[i].Visible == true)
+                        playersResults.Add(resultControls[i].PlayerResult);
                 }
                 return playersResults;
             }
             set
             {
-                for (int i = 0; i < resultsCounter; i++)
+                for(int j = 0; j < value.Count; j++)
                 {
-                    
-                    resultControls[i].PlayerResult = value[i];
-                   
+                    if(value[j].Contains(":"))
+                    {
+                        for (int k = 0; k < 8; k++)
+                        {
+                            resultControls[k].IsTime = true;
+                            
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        for (int k = 0; k < 8; k++)
+                        {
+                            resultControls[k].IsTime = false;
+
+                        }
+                        break;
+                    }
+                        
+                }
+                for (int i = 0; i < 8; i++)
+                {
+                    //  try
+                    // {
+                    if (i < value.Count)
+                    {
+                        resultControls[i].Visible = true;
+                        resultControls[i].PlayerResult = value[i];
+                    }
+                    else
+                        resultControls[i].Visible = false;
+                    //  }
+                    //  catch(Exception)
+                    //  {
+
+                    //  }
+
+
                 }
             }
         }
@@ -84,7 +130,25 @@ namespace AthleticCompetition.Controls
             InitializeComponent();
             resultControls[0] = resultControl1;
             resultControls[0].textBoxResultLeave += new EventHandler(Result_Leave);
+            
+    
+            for(int i = 1; i < 8; i++)
+            {
+                ResultControl newResult = new ResultControl();
+                newResult.Top = 64 + 30 * i;
+                newResult.Left = 7;
+                newResult.PlayerPlace = (i + 1).ToString();
+                newResult.Visible = false;
+                resultControls[i] = newResult;
+                resultControls[i].textBoxResultLeave += new EventHandler(Result_Leave);
+                if (comboBoxMeasureUnit.SelectedIndex == 1)
+                    resultControls[i].IsTime = true;   
+                this.Controls.Add(newResult);
+                this.Height += 35;
+            }
             resultsCounter = 1;
+
+
         }
 
         private void Result_Leave(object sender, EventArgs e)
@@ -108,17 +172,14 @@ namespace AthleticCompetition.Controls
         {
             if(resultsCounter < 8)
             {
-                ResultControl newResult = new ResultControl();
-                newResult.Top = 64 + 30 * resultsCounter;
-                newResult.Left = 7;
-                newResult.PlayerPlace = (resultsCounter + 1).ToString();
-                resultControls[resultsCounter] = newResult;
-                resultControls[resultsCounter].textBoxResultLeave+= new EventHandler(Result_Leave);
-                if (comboBoxMeasureUnit.SelectedIndex == 1)
-                    resultControls[resultsCounter].IsTime = true;
+                resultControls[resultsCounter].Visible = true;
+                resultControls[resultsCounter].PlayerName = "";
+                if (resultControls[0].IsTime)
+                    resultControls[resultsCounter].PlayerResult = "0:0:0:0";
+                else
+                    resultControls[resultsCounter].PlayerResult = "";
                 resultsCounter++;
-                this.Controls.Add(newResult);
-                this.Height += 35;
+
             }
         }
 
@@ -126,7 +187,7 @@ namespace AthleticCompetition.Controls
         {
             if(resultsCounter > 1)
             {
-                this.Controls.Remove(resultControls[resultsCounter - 1]);
+                resultControls[resultsCounter-1].Visible = false;
                 resultsCounter--;
             }
         }
@@ -138,9 +199,10 @@ namespace AthleticCompetition.Controls
 
         private void comboBoxMeasureUnit_SelectedIndexChanged(object sender, EventArgs e)
         {
-            for(int i = 0; i < resultsCounter; i++)
+            for(int i = 0; i < 8; i++)
             {
-                 resultControls[i].NotResult = false;
+                if(resultControls[i].Visible == true)
+                    resultControls[i].NotResult = false;
             }
             
             if (comboBoxMeasureUnit.SelectedIndex == 1 ) 
@@ -181,8 +243,8 @@ namespace AthleticCompetition.Controls
                 {
                     resultControls[i].NotResult = false;
                 }
-                makeResultControls(1);
-                
+
+                //ClearDiscipline();
             }
         }
 
@@ -192,50 +254,13 @@ namespace AthleticCompetition.Controls
             for(int i = 0; i < resultsCounter; i++)
             {
                 lista.Add("");
+                //resultControls[i].uncheckCheckBoxes();
             }
             PlayersList = lista;
             PlayersResults = lista;
         }
 
-        public void makeResultControls(int number)
-        {
-            
-            if (resultsCounter == number)
-                return;
-            else if(resultsCounter < number)
-            {
-                int m = number - resultsCounter;
-                for (int i = 0; i < m; i++)
-                {
-                    ResultControl newResult = new ResultControl();
-                    newResult.Top = 64 + 30 * resultsCounter;
-                    newResult.Left = 7;
-                    newResult.PlayerPlace = (resultsCounter + 1).ToString();
-                    resultControls[resultsCounter] = newResult;
-                    resultControls[resultsCounter].textBoxResultLeave += new EventHandler(Result_Leave);
-                    if (comboBoxMeasureUnit.SelectedIndex == 1)
-                        resultControls[resultsCounter].IsTime = true;
-                    resultsCounter++;
-                    this.Controls.Add(newResult);
-                    this.Height += 35;
-                }
-                resultsCounter = number;
-            }
-            else if(resultsCounter > number)
-            {
-                Console.WriteLine(number);
-                int n = resultsCounter - number;
-
-                for(int i = n-1; i < resultsCounter; i++)
-                {
-                    this.Controls.Remove(resultControls[i]);
-                   
-                }
-                resultsCounter = number;
-                
-                
-            }
-        }
+     
 
     }
 }

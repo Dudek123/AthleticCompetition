@@ -35,29 +35,61 @@ namespace AthleticCompetition.Controls
             {
                 if (value == "DNF" || value == "DNS" || value == "DQ")
                 {
-                    textBoxResult.Enabled = false;
-                    timeControl1.Enabled = false;
+                    //textBoxResult.Enabled = false;
+                    //timeControl1.Enabled = false;
+                    textBoxResult.Text = "";
+                    timeControl1.Hours = "0";
+                    timeControl1.Minutes = "0";
+                    timeControl1.Seconds = "0";
+                    timeControl1.Hundredths = "0";
                     if(value == "DNF")
                     {
                         checkBoxDNF.Checked = true;
-                        checkBoxDNS.Enabled = false;
-                        checkBoxDQ.Enabled = false;
+                        //checkBoxDNS.Enabled = false;
+                        //checkBoxDQ.Enabled = false;
                     }
                     if (value == "DNS")
                     {
                         checkBoxDNS.Checked = true;
-                        checkBoxDNF.Enabled = false;
-                        checkBoxDQ.Enabled = false;
+                        //checkBoxDNF.Enabled = false;
+                        //checkBoxDQ.Enabled = false;
                     }
                     if (value == "DQ")
                     {
                         checkBoxDQ.Checked = true;
-                        checkBoxDNS.Enabled = false;
-                        checkBoxDNF.Enabled = false;
+                        //checkBoxDNS.Enabled = false;
+                        //checkBoxDNF.Enabled = false;
                     }
+
                 }
                 else
-                    textBoxResult.Text = value;
+                {
+                    textBoxResult.Enabled = true;
+                    timeControl1.Enabled = true;
+                    checkBoxDNF.Checked = false;
+                    checkBoxDNS.Checked = false;
+                    checkBoxDQ.Checked = false;
+
+                    if(value.Contains(":")) //czas
+                    {
+                        var lista = value.Split(':');
+                        timeControl1.Hours = lista[0];
+                        timeControl1.Minutes = lista[1];
+                        timeControl1.Seconds = lista[2];
+                        timeControl1.Hundredths = lista[3];
+                        timeControl1.Visible = true;
+                        textBoxResult.Visible = false;
+                    }
+                    else
+                    {
+                        timeControl1.Visible = false;
+                        textBoxResult.Visible = true;
+                        textBoxResult.Text = value;
+                    }
+                        
+
+                }
+
             }
         }
         public string PlayerPlace { get { return labelPlace.Text.ToString(); } set { labelPlace.Text = value; } }
@@ -232,6 +264,13 @@ namespace AthleticCompetition.Controls
         private void ResultControl_Load(object sender, EventArgs e)
         {
             //textBoxResult.Enabled = true;
+        }
+
+        public void uncheckCheckBoxes()
+        {
+            checkBoxDNF.Checked = false;
+            checkBoxDNS.Checked = false;
+            checkBoxDQ.Checked = false;
         }
     }
 }

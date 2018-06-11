@@ -44,10 +44,13 @@ namespace AthleticCompetition.Views
         public event Func<bool> ClearCompetition;
         public event Func<List<string>> GetCompetitionInfos;
         public event Func<int, Discipline> GetDiscipline;
+        public event Func<List<string>> GetDisciplinesNames;
+        public event Func<int, string, List<string>, List<string>, bool> UpdateDiscipline;
 
         private void saveDiscipline_Click(object sender, EventArgs e)
         {
-            
+            if (radioButtonGenerate.Checked)
+            {
                 if (SaveDiscipline(disciplineControl1.DisciplineName, disciplineControl1.PlayersList, disciplineControl1.PlayersResults))
                 {
                     disciplineControl1.ClearDiscipline();
@@ -55,8 +58,17 @@ namespace AthleticCompetition.Views
                 }
                 else
                     MessageBox.Show("Brak wybranej dyscypliny, brak zawodnika lub brak wyniku", "Błąd danych", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            
-            
+            }
+            if(radioButtonEdit.Checked)
+            {
+                if (UpdateDiscipline(currentDiscipline, disciplineControl1.Name, disciplineControl1.PlayersList, disciplineControl1.PlayersResults))
+                {
+                    MessageBox.Show("Dyscyplina zaktualizowana pomyślnie", "Aktualizacja pomyślna", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    MessageBox.Show("Brak wybranej dyscypliny, brak zawodnika lub brak wyniku", "Błąd danych", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void buttonSaveCompetition_Click(object sender, EventArgs e)
@@ -95,11 +107,17 @@ namespace AthleticCompetition.Views
             CompetitionLocation = compInfos[1];
             CompetitionDate = compInfos[2];
 
+            var list = GetDisciplinesNames();
+
+            listBoxDisciplines.Items.Clear();
+
+            foreach(var d in list)
+            {
+                listBoxDisciplines.Items.Add(d);
+            }
+
             if (LoadDiscipline(0))
                 currentDiscipline = 0;
-
-
-
 
         }
 
@@ -116,14 +134,13 @@ namespace AthleticCompetition.Views
                 return false;
             }
             
-            currentDiscipline = number;
             disciplineControl1.DisciplineName = disc.DisciplineName;
 
             var results = disc.Results;
 
             List<string> ps = new List<string>();
             List<string> rs = new List<string>();
-
+            currentDiscipline = number;
 
             foreach (var r in results)
             {
@@ -131,7 +148,6 @@ namespace AthleticCompetition.Views
                 rs.Add(r.PlayerResult);
             }
 
-            disciplineControl1.makeResultControls(ps.Count);
             disciplineControl1.PlayersList = ps;
             disciplineControl1.PlayersResults = rs;
 
@@ -159,10 +175,9 @@ namespace AthleticCompetition.Views
 
         private void showEdit(bool a)
         {
-            buttonPrevDisc.Visible = a;
-            buttonNextDisc.Visible = a;
             comboBoxCompetitions.Visible = a;
             buttonLoadCompetition.Visible = a;
+            listBoxDisciplines.Visible = a;
         }
 
         private void radioButtonShow_CheckedChanged(object sender, EventArgs e)
@@ -188,6 +203,18 @@ namespace AthleticCompetition.Views
             int c = currentDiscipline + 1;
             if (LoadDiscipline(c))
                 currentDiscipline = c;
+        }
+
+        private void listBoxDisciplines_DoubleClick(object sender, EventArgs e)
+        {
+            if(listBoxDisciplines.SelectedIndex != -1)
+            {
+                //disciplineControl1.ClearDiscipline();
+                if(LoadDiscipline(listBoxDisciplines.SelectedIndex))
+                {
+
+                }
+            }
         }
     }
 }

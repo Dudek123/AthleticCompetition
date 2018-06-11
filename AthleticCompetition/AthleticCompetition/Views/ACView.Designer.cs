@@ -37,18 +37,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePickerDate = new System.Windows.Forms.DateTimePicker();
             this.comboBoxCompetitions = new System.Windows.Forms.ComboBox();
-            this.buttonPrevDisc = new System.Windows.Forms.Button();
-            this.buttonNextDisc = new System.Windows.Forms.Button();
             this.buttonLoadCompetition = new System.Windows.Forms.Button();
             this.radioButtonGenerate = new System.Windows.Forms.RadioButton();
             this.radioButtonEdit = new System.Windows.Forms.RadioButton();
             this.radioButtonShow = new System.Windows.Forms.RadioButton();
+            this.listBoxDisciplines = new System.Windows.Forms.ListBox();
             this.disciplineControl1 = new AthleticCompetition.Controls.DisciplineControl();
             this.SuspendLayout();
             // 
             // buttonSaveCompetition
             // 
-            this.buttonSaveCompetition.Location = new System.Drawing.Point(332, 109);
+            this.buttonSaveCompetition.Location = new System.Drawing.Point(332, 49);
             this.buttonSaveCompetition.Name = "buttonSaveCompetition";
             this.buttonSaveCompetition.Size = new System.Drawing.Size(112, 36);
             this.buttonSaveCompetition.TabIndex = 1;
@@ -109,7 +108,7 @@
             // 
             this.comboBoxCompetitions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCompetitions.FormattingEnabled = true;
-            this.comboBoxCompetitions.Location = new System.Drawing.Point(332, 68);
+            this.comboBoxCompetitions.Location = new System.Drawing.Point(332, 12);
             this.comboBoxCompetitions.Name = "comboBoxCompetitions";
             this.comboBoxCompetitions.Size = new System.Drawing.Size(121, 21);
             this.comboBoxCompetitions.TabIndex = 8;
@@ -117,31 +116,9 @@
             this.comboBoxCompetitions.DropDown += new System.EventHandler(this.comboBoxCompetitions_DropDown);
             this.comboBoxCompetitions.SelectedIndexChanged += new System.EventHandler(this.comboBoxCompetitions_SelectedIndexChanged);
             // 
-            // buttonPrevDisc
-            // 
-            this.buttonPrevDisc.Location = new System.Drawing.Point(12, 160);
-            this.buttonPrevDisc.Name = "buttonPrevDisc";
-            this.buttonPrevDisc.Size = new System.Drawing.Size(140, 23);
-            this.buttonPrevDisc.TabIndex = 9;
-            this.buttonPrevDisc.Text = "Poprzednia dyscyplina";
-            this.buttonPrevDisc.UseVisualStyleBackColor = true;
-            this.buttonPrevDisc.Visible = false;
-            this.buttonPrevDisc.Click += new System.EventHandler(this.buttonPrevDisc_Click);
-            // 
-            // buttonNextDisc
-            // 
-            this.buttonNextDisc.Location = new System.Drawing.Point(405, 160);
-            this.buttonNextDisc.Name = "buttonNextDisc";
-            this.buttonNextDisc.Size = new System.Drawing.Size(140, 23);
-            this.buttonNextDisc.TabIndex = 10;
-            this.buttonNextDisc.Text = "Następna dyscyplina";
-            this.buttonNextDisc.UseVisualStyleBackColor = true;
-            this.buttonNextDisc.Visible = false;
-            this.buttonNextDisc.Click += new System.EventHandler(this.buttonNextDisc_Click);
-            // 
             // buttonLoadCompetition
             // 
-            this.buttonLoadCompetition.Location = new System.Drawing.Point(459, 65);
+            this.buttonLoadCompetition.Location = new System.Drawing.Point(470, 12);
             this.buttonLoadCompetition.Name = "buttonLoadCompetition";
             this.buttonLoadCompetition.Size = new System.Drawing.Size(75, 46);
             this.buttonLoadCompetition.TabIndex = 12;
@@ -186,6 +163,16 @@
             this.radioButtonShow.UseVisualStyleBackColor = true;
             this.radioButtonShow.CheckedChanged += new System.EventHandler(this.radioButtonShow_CheckedChanged);
             // 
+            // listBoxDisciplines
+            // 
+            this.listBoxDisciplines.FormattingEnabled = true;
+            this.listBoxDisciplines.Location = new System.Drawing.Point(415, 98);
+            this.listBoxDisciplines.Name = "listBoxDisciplines";
+            this.listBoxDisciplines.Size = new System.Drawing.Size(120, 95);
+            this.listBoxDisciplines.TabIndex = 16;
+            this.listBoxDisciplines.Visible = false;
+            this.listBoxDisciplines.DoubleClick += new System.EventHandler(this.listBoxDisciplines_DoubleClick);
+            // 
             // disciplineControl1
             // 
             this.disciplineControl1.DisciplineName = null;
@@ -193,7 +180,7 @@
             this.disciplineControl1.Name = "disciplineControl1";
             this.disciplineControl1.PlayersList = ((System.Collections.Generic.List<string>)(resources.GetObject("disciplineControl1.PlayersList")));
             this.disciplineControl1.PlayersResults = ((System.Collections.Generic.List<string>)(resources.GetObject("disciplineControl1.PlayersResults")));
-            this.disciplineControl1.Size = new System.Drawing.Size(533, 109);
+            this.disciplineControl1.Size = new System.Drawing.Size(533, 305);
             this.disciplineControl1.TabIndex = 0;
             // 
             // ACView
@@ -201,12 +188,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(557, 515);
+            this.Controls.Add(this.listBoxDisciplines);
             this.Controls.Add(this.radioButtonShow);
             this.Controls.Add(this.radioButtonEdit);
             this.Controls.Add(this.radioButtonGenerate);
             this.Controls.Add(this.buttonLoadCompetition);
-            this.Controls.Add(this.buttonNextDisc);
-            this.Controls.Add(this.buttonPrevDisc);
             this.Controls.Add(this.comboBoxCompetitions);
             this.Controls.Add(this.dateTimePickerDate);
             this.Controls.Add(this.label1);
@@ -236,11 +222,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePickerDate;
         private System.Windows.Forms.ComboBox comboBoxCompetitions;
-        private System.Windows.Forms.Button buttonPrevDisc;
-        private System.Windows.Forms.Button buttonNextDisc;
         private System.Windows.Forms.Button buttonLoadCompetition;
         private System.Windows.Forms.RadioButton radioButtonGenerate;
         private System.Windows.Forms.RadioButton radioButtonEdit;
         private System.Windows.Forms.RadioButton radioButtonShow;
+        private System.Windows.Forms.ListBox listBoxDisciplines;
     }
 }

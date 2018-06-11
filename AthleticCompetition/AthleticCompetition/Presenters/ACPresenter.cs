@@ -22,6 +22,18 @@ namespace AthleticCompetition.Presenters
             view.ClearCompetition += clearCompetition;
             view.GetCompetitionInfos += getCompetitionInfos;
             view.GetDiscipline += getDiscipline;
+            view.GetDisciplinesNames += getDisciplinesNames;
+            view.UpdateDiscipline += updateDiscipline;
+        }
+
+        private bool updateDiscipline(int number, string name, List<string> players, List<string> results)
+        {
+            return model.UpdateDiscipline(number, name, players, results);
+        }
+
+        private List<string> getDisciplinesNames()
+        {
+            return model.GetDisciplinesNames();
         }
 
         private Discipline getDiscipline(int number)
