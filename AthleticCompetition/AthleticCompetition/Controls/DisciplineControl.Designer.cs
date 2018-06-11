@@ -67,7 +67,6 @@
             this.comboBoxDisciplineName.Name = "comboBoxDisciplineName";
             this.comboBoxDisciplineName.Size = new System.Drawing.Size(155, 21);
             this.comboBoxDisciplineName.TabIndex = 3;
-            this.comboBoxDisciplineName.SelectedIndexChanged += new System.EventHandler(this.comboBoxDisciplineName_SelectedIndexChanged);
             // 
             // buttonAddPlace
             // 

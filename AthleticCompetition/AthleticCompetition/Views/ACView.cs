@@ -28,6 +28,8 @@ namespace AthleticCompetition.Views
             }
         }
 
+        private int currentDiscipline;
+
 
         public ACView()
         {
@@ -45,13 +47,16 @@ namespace AthleticCompetition.Views
 
         private void saveDiscipline_Click(object sender, EventArgs e)
         {
-            if (SaveDiscipline(disciplineControl1.DisciplineName, disciplineControl1.PlayersList, disciplineControl1.PlayersResults))
-            {
-                disciplineControl1.PlayersList = new List<string>();
-                MessageBox.Show("Dyscyplina zapisana pomyślnie do bazy", "Zapisano pomyślnie", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-                MessageBox.Show("Brak wybranej dyscypliny, brak zawodnika lub brak wyniku","Błąd danych",MessageBoxButtons.OK, MessageBoxIcon.Error);
+            
+                if (SaveDiscipline(disciplineControl1.DisciplineName, disciplineControl1.PlayersList, disciplineControl1.PlayersResults))
+                {
+                    disciplineControl1.ClearDiscipline();
+                    MessageBox.Show("Dyscyplina zapisana pomyślnie do bazy", "Zapisano pomyślnie", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    MessageBox.Show("Brak wybranej dyscypliny, brak zawodnika lub brak wyniku", "Błąd danych", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            
+            
         }
 
         private void buttonSaveCompetition_Click(object sender, EventArgs e)
@@ -64,30 +69,7 @@ namespace AthleticCompetition.Views
                 MessageBox.Show("Brak nazwy, miejsca lub dodanych dyscyplin", "Błąd danych", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void ACView_Load(object sender, EventArgs e)
-        {
-        
-            toolStripComboBoxTryb.SelectedItem = toolStripComboBoxTryb.Items[0];
-
-        }
-
-        private void toolStripComboBoxTryb_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(toolStripComboBoxTryb.SelectedIndex == 1)
-            {
-                buttonPrevDisc.Visible = true;
-                buttonNextDisc.Visible = true;
-                comboBoxCompetitions.Visible = true;
-            }
-            else
-            {
-                buttonPrevDisc.Visible = false;
-                buttonNextDisc.Visible = false;
-                comboBoxCompetitions.Visible = false;
-                ClearCompetition();
-            }
-        }
-
+  
         private void comboBoxCompetitions_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(LoadCompetition(Path.Combine(Directory.GetCurrentDirectory(),comboBoxCompetitions.SelectedItem.ToString())))
@@ -113,9 +95,99 @@ namespace AthleticCompetition.Views
             CompetitionLocation = compInfos[1];
             CompetitionDate = compInfos[2];
 
-            var disc = GetDiscipline(0);
-            disciplineControl1.DisciplineName = disc.DisciplineName;
+            if (LoadDiscipline(0))
+                currentDiscipline = 0;
+
+
+
+
+        }
+
+        private bool LoadDiscipline(int number)
+        {
+            Discipline disc = new Discipline();
+            try
+            {
+                disc = GetDiscipline(number);
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("To jest pierwsze lub ostanie pytanie, wybierz inne", "Brak pytania", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
             
+            currentDiscipline = number;
+            disciplineControl1.DisciplineName = disc.DisciplineName;
+
+            var results = disc.Results;
+
+            List<string> ps = new List<string>();
+            List<string> rs = new List<string>();
+
+
+            foreach (var r in results)
+            {
+                ps.Add(r.Player);
+                rs.Add(r.PlayerResult);
+            }
+
+            disciplineControl1.makeResultControls(ps.Count);
+            disciplineControl1.PlayersList = ps;
+            disciplineControl1.PlayersResults = rs;
+
+            return true;
+        }
+
+
+        private void radioButtonGenerate_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioButtonGenerate.Checked)
+            {
+                showEdit(false);
+                ClearCompetition();
+            }
+        }
+
+        private void radioButtonEdit_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioButtonEdit.Checked)
+            {
+                showEdit(true);
+                ClearCompetition();
+            }
+        }
+
+        private void showEdit(bool a)
+        {
+            buttonPrevDisc.Visible = a;
+            buttonNextDisc.Visible = a;
+            comboBoxCompetitions.Visible = a;
+            buttonLoadCompetition.Visible = a;
+        }
+
+        private void radioButtonShow_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioButtonShow.Checked)
+            {
+                showEdit(false);
+                ClearCompetition();
+            }
+        }
+
+        private void buttonPrevDisc_Click(object sender, EventArgs e)
+        {
+            int c = currentDiscipline - 1;
+            if (LoadDiscipline(c))
+                currentDiscipline = c;
+       
+            
+        }
+
+        private void buttonNextDisc_Click(object sender, EventArgs e)
+        {
+            int c = currentDiscipline + 1;
+            if (LoadDiscipline(c))
+                currentDiscipline = c;
         }
     }
 }

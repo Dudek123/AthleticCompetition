@@ -37,12 +37,17 @@ namespace AthleticCompetition.Controls
             }
             set
             {
-                playersList.Clear();
-                playersResults.Clear();
                 for (int i = 0; i < resultsCounter; i++)
                 {
-                    resultControls[i].PlayerName = "";
-                    resultControls[i].PlayerResult = "";
+                    //try
+                    //{
+                        resultControls[i].PlayerName = value[i];
+                    //}
+                    //catch(Exception)
+                    //{
+                     //   Console.WriteLine("Głupi catch, nie wiem po co xD");
+                    //}
+                    
                 }
             }
         }
@@ -57,6 +62,15 @@ namespace AthleticCompetition.Controls
                     playersResults.Add(resultControls[i].PlayerResult);
                 }
                 return playersResults;
+            }
+            set
+            {
+                for (int i = 0; i < resultsCounter; i++)
+                {
+                    
+                    resultControls[i].PlayerResult = value[i];
+                   
+                }
             }
         }
 
@@ -167,12 +181,61 @@ namespace AthleticCompetition.Controls
                 {
                     resultControls[i].NotResult = false;
                 }
+                makeResultControls(1);
+                
             }
         }
 
-        private void comboBoxDisciplineName_SelectedIndexChanged(object sender, EventArgs e)
+        public void ClearDiscipline()
         {
-            PlayersList = new List<string>();      
+            List<string> lista = new List<string>();
+            for(int i = 0; i < resultsCounter; i++)
+            {
+                lista.Add("");
+            }
+            PlayersList = lista;
+            PlayersResults = lista;
         }
+
+        public void makeResultControls(int number)
+        {
+            
+            if (resultsCounter == number)
+                return;
+            else if(resultsCounter < number)
+            {
+                int m = number - resultsCounter;
+                for (int i = 0; i < m; i++)
+                {
+                    ResultControl newResult = new ResultControl();
+                    newResult.Top = 64 + 30 * resultsCounter;
+                    newResult.Left = 7;
+                    newResult.PlayerPlace = (resultsCounter + 1).ToString();
+                    resultControls[resultsCounter] = newResult;
+                    resultControls[resultsCounter].textBoxResultLeave += new EventHandler(Result_Leave);
+                    if (comboBoxMeasureUnit.SelectedIndex == 1)
+                        resultControls[resultsCounter].IsTime = true;
+                    resultsCounter++;
+                    this.Controls.Add(newResult);
+                    this.Height += 35;
+                }
+                resultsCounter = number;
+            }
+            else if(resultsCounter > number)
+            {
+                Console.WriteLine(number);
+                int n = resultsCounter - number;
+
+                for(int i = n-1; i < resultsCounter; i++)
+                {
+                    this.Controls.Remove(resultControls[i]);
+                   
+                }
+                resultsCounter = number;
+                
+                
+            }
+        }
+
     }
 }

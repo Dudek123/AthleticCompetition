@@ -17,5 +17,6 @@ namespace AthleticCompetition.Views
         event Func<bool> ClearCompetition;
         event Func<List<string>> GetCompetitionInfos;
         event Func<int, Discipline> GetDiscipline;
+        
     }
 }

@@ -33,7 +33,31 @@ namespace AthleticCompetition.Controls
             }
             set
             {
-                textBoxResult.Text = value;
+                if (value == "DNF" || value == "DNS" || value == "DQ")
+                {
+                    textBoxResult.Enabled = false;
+                    timeControl1.Enabled = false;
+                    if(value == "DNF")
+                    {
+                        checkBoxDNF.Checked = true;
+                        checkBoxDNS.Enabled = false;
+                        checkBoxDQ.Enabled = false;
+                    }
+                    if (value == "DNS")
+                    {
+                        checkBoxDNS.Checked = true;
+                        checkBoxDNF.Enabled = false;
+                        checkBoxDQ.Enabled = false;
+                    }
+                    if (value == "DQ")
+                    {
+                        checkBoxDQ.Checked = true;
+                        checkBoxDNS.Enabled = false;
+                        checkBoxDNF.Enabled = false;
+                    }
+                }
+                else
+                    textBoxResult.Text = value;
             }
         }
         public string PlayerPlace { get { return labelPlace.Text.ToString(); } set { labelPlace.Text = value; } }
@@ -83,6 +107,7 @@ namespace AthleticCompetition.Controls
                 checkBoxDNS.Checked = false;
                 checkBoxDQ.Enabled = true;
                 checkBoxDQ.Checked = false;
+                timeControl1.Enabled = true;
                 timeControl1.Hours = "0";
                 timeControl1.Minutes = "0";
                 timeControl1.Seconds = "0";
