@@ -47,65 +47,126 @@
             // labelDisciplineName
             // 
             this.labelDisciplineName.AutoSize = true;
-            this.labelDisciplineName.Location = new System.Drawing.Point(3, 13);
+            this.labelDisciplineName.Font = new System.Drawing.Font("Constantia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelDisciplineName.ForeColor = System.Drawing.Color.Black;
+            this.labelDisciplineName.Location = new System.Drawing.Point(2, 18);
             this.labelDisciplineName.Name = "labelDisciplineName";
-            this.labelDisciplineName.Size = new System.Drawing.Size(94, 13);
+            this.labelDisciplineName.Size = new System.Drawing.Size(72, 15);
             this.labelDisciplineName.TabIndex = 2;
-            this.labelDisciplineName.Text = "Nazwa dyscypliny:";
+            this.labelDisciplineName.Text = "Dyscyplina:";
             // 
             // comboBoxDisciplineName
             // 
             this.comboBoxDisciplineName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDisciplineName.Font = new System.Drawing.Font("Constantia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxDisciplineName.ForeColor = System.Drawing.Color.Black;
             this.comboBoxDisciplineName.FormattingEnabled = true;
             this.comboBoxDisciplineName.Items.AddRange(new object[] {
+            "100 m K",
             "100 m M",
-            "100 m W",
-            "400 m przez płotki",
-            "Siedmiobój",
-            "Skok w dal"});
-            this.comboBoxDisciplineName.Location = new System.Drawing.Point(103, 10);
+            "200 m M",
+            "200 m K",
+            "400 m M",
+            "400 m K",
+            "800 m M",
+            "800 m K",
+            "1500 m M",
+            "1500 m K",
+            "5000 m M",
+            "5000 m K",
+            "10000 m M",
+            "10000 m K",
+            "Maraton M",
+            "Maraton K",
+            "100 m przez płotki K",
+            "110 m przez płotki M",
+            "400 m przez płotki M",
+            "400 m przez płotki K",
+            "3000 m z przeszkodami M",
+            "3000 m z przeszkodami K",
+            "4x100 m M",
+            "4x100 m K",
+            "4x400 m M",
+            "4x400 m K",
+            "Chód 20 km K",
+            "Chód 20 km M",
+            "Chód 50 km M",
+            "Skok wzwyż M",
+            "Skok wzwyż K",
+            "Trójskok M",
+            "Trójskok K",
+            "Skok w dal M",
+            "Skok w dal K",
+            "Skok o tyczce M",
+            "Skok o tyczce K",
+            "Pchnięcie kulą M",
+            "Pchnięcie kulą K",
+            "Rzut dyskiem M",
+            "Rzut dyskiem K",
+            "Rzut młotem M",
+            "Rzut młotem K",
+            "Rzut oszczepem M",
+            "Rzut oszczepem K",
+            "Dziesięciobój M",
+            "Siedmiobój K"});
+            this.comboBoxDisciplineName.Location = new System.Drawing.Point(77, 14);
             this.comboBoxDisciplineName.Name = "comboBoxDisciplineName";
-            this.comboBoxDisciplineName.Size = new System.Drawing.Size(155, 21);
+            this.comboBoxDisciplineName.Size = new System.Drawing.Size(159, 23);
             this.comboBoxDisciplineName.TabIndex = 3;
             // 
             // buttonAddPlace
             // 
-            this.buttonAddPlace.Location = new System.Drawing.Point(264, 8);
+            this.buttonAddPlace.BackColor = System.Drawing.Color.Gray;
+            this.buttonAddPlace.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonAddPlace.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddPlace.Font = new System.Drawing.Font("Constantia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonAddPlace.ForeColor = System.Drawing.Color.White;
+            this.buttonAddPlace.Location = new System.Drawing.Point(242, 4);
             this.buttonAddPlace.Name = "buttonAddPlace";
-            this.buttonAddPlace.Size = new System.Drawing.Size(26, 23);
+            this.buttonAddPlace.Size = new System.Drawing.Size(58, 40);
             this.buttonAddPlace.TabIndex = 4;
-            this.buttonAddPlace.Text = "+";
-            this.buttonAddPlace.UseVisualStyleBackColor = true;
+            this.buttonAddPlace.Text = "Dodaj miejsce";
+            this.buttonAddPlace.UseVisualStyleBackColor = false;
             this.buttonAddPlace.Click += new System.EventHandler(this.buttonAddPlace_Click);
             // 
             // buttonDeletePlace
             // 
-            this.buttonDeletePlace.Location = new System.Drawing.Point(296, 8);
+            this.buttonDeletePlace.BackColor = System.Drawing.Color.Gray;
+            this.buttonDeletePlace.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonDeletePlace.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDeletePlace.Font = new System.Drawing.Font("Constantia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonDeletePlace.ForeColor = System.Drawing.Color.White;
+            this.buttonDeletePlace.Location = new System.Drawing.Point(306, 4);
             this.buttonDeletePlace.Name = "buttonDeletePlace";
-            this.buttonDeletePlace.Size = new System.Drawing.Size(26, 23);
+            this.buttonDeletePlace.Size = new System.Drawing.Size(59, 40);
             this.buttonDeletePlace.TabIndex = 5;
-            this.buttonDeletePlace.Text = "-";
-            this.buttonDeletePlace.UseVisualStyleBackColor = true;
+            this.buttonDeletePlace.Text = "Usuń miejsce";
+            this.buttonDeletePlace.UseVisualStyleBackColor = false;
             this.buttonDeletePlace.Click += new System.EventHandler(this.buttonDeletePlace_Click);
             // 
             // comboBoxMeasureUnit
             // 
+            this.comboBoxMeasureUnit.BackColor = System.Drawing.Color.Gray;
             this.comboBoxMeasureUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMeasureUnit.Font = new System.Drawing.Font("Constantia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxMeasureUnit.ForeColor = System.Drawing.Color.White;
             this.comboBoxMeasureUnit.FormattingEnabled = true;
             this.comboBoxMeasureUnit.Items.AddRange(new object[] {
             "m",
             "czas",
             "pkt"});
-            this.comboBoxMeasureUnit.Location = new System.Drawing.Point(328, 10);
+            this.comboBoxMeasureUnit.Location = new System.Drawing.Point(371, 15);
             this.comboBoxMeasureUnit.Name = "comboBoxMeasureUnit";
-            this.comboBoxMeasureUnit.Size = new System.Drawing.Size(47, 21);
+            this.comboBoxMeasureUnit.Size = new System.Drawing.Size(47, 23);
             this.comboBoxMeasureUnit.TabIndex = 6;
             this.comboBoxMeasureUnit.SelectedIndexChanged += new System.EventHandler(this.comboBoxMeasureUnit_SelectedIndexChanged);
             // 
             // labelHours
             // 
             this.labelHours.AutoSize = true;
-            this.labelHours.Location = new System.Drawing.Point(254, 47);
+            this.labelHours.Font = new System.Drawing.Font("Constantia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelHours.ForeColor = System.Drawing.Color.Black;
+            this.labelHours.Location = new System.Drawing.Point(254, 50);
             this.labelHours.Name = "labelHours";
             this.labelHours.Size = new System.Drawing.Size(35, 13);
             this.labelHours.TabIndex = 7;
@@ -115,9 +176,11 @@
             // labelMinutes
             // 
             this.labelMinutes.AutoSize = true;
-            this.labelMinutes.Location = new System.Drawing.Point(300, 47);
+            this.labelMinutes.Font = new System.Drawing.Font("Constantia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelMinutes.ForeColor = System.Drawing.Color.Black;
+            this.labelMinutes.Location = new System.Drawing.Point(300, 50);
             this.labelMinutes.Name = "labelMinutes";
-            this.labelMinutes.Size = new System.Drawing.Size(27, 13);
+            this.labelMinutes.Size = new System.Drawing.Size(29, 13);
             this.labelMinutes.TabIndex = 8;
             this.labelMinutes.Text = "Min.";
             this.labelMinutes.Visible = false;
@@ -125,9 +188,11 @@
             // labelSeconds
             // 
             this.labelSeconds.AutoSize = true;
-            this.labelSeconds.Location = new System.Drawing.Point(346, 47);
+            this.labelSeconds.Font = new System.Drawing.Font("Constantia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelSeconds.ForeColor = System.Drawing.Color.Black;
+            this.labelSeconds.Location = new System.Drawing.Point(346, 50);
             this.labelSeconds.Name = "labelSeconds";
-            this.labelSeconds.Size = new System.Drawing.Size(29, 13);
+            this.labelSeconds.Size = new System.Drawing.Size(27, 13);
             this.labelSeconds.TabIndex = 9;
             this.labelSeconds.Text = "Sek.";
             this.labelSeconds.Visible = false;
@@ -135,27 +200,36 @@
             // labelHounredths
             // 
             this.labelHounredths.AutoSize = true;
-            this.labelHounredths.Location = new System.Drawing.Point(392, 47);
+            this.labelHounredths.Font = new System.Drawing.Font("Constantia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelHounredths.ForeColor = System.Drawing.Color.Black;
+            this.labelHounredths.Location = new System.Drawing.Point(392, 50);
             this.labelHounredths.Name = "labelHounredths";
-            this.labelHounredths.Size = new System.Drawing.Size(35, 13);
+            this.labelHounredths.Size = new System.Drawing.Size(33, 13);
             this.labelHounredths.TabIndex = 10;
             this.labelHounredths.Text = "Setne";
             this.labelHounredths.Visible = false;
             // 
             // buttonSaveDiscipline
             // 
-            this.buttonSaveDiscipline.Location = new System.Drawing.Point(381, 3);
+            this.buttonSaveDiscipline.BackColor = System.Drawing.Color.Gray;
+            this.buttonSaveDiscipline.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonSaveDiscipline.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSaveDiscipline.Font = new System.Drawing.Font("Constantia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonSaveDiscipline.ForeColor = System.Drawing.Color.White;
+            this.buttonSaveDiscipline.Location = new System.Drawing.Point(424, 4);
             this.buttonSaveDiscipline.Name = "buttonSaveDiscipline";
-            this.buttonSaveDiscipline.Size = new System.Drawing.Size(75, 38);
+            this.buttonSaveDiscipline.Size = new System.Drawing.Size(106, 43);
             this.buttonSaveDiscipline.TabIndex = 11;
             this.buttonSaveDiscipline.Text = "Zapisz dyscyplinę";
-            this.buttonSaveDiscipline.UseVisualStyleBackColor = true;
+            this.buttonSaveDiscipline.UseVisualStyleBackColor = false;
             this.buttonSaveDiscipline.Click += new System.EventHandler(this.buttonSaveDiscipline_Click);
             // 
             // labelDNF
             // 
             this.labelDNF.AutoSize = true;
-            this.labelDNF.Location = new System.Drawing.Point(444, 47);
+            this.labelDNF.Font = new System.Drawing.Font("Constantia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelDNF.ForeColor = System.Drawing.Color.Black;
+            this.labelDNF.Location = new System.Drawing.Point(444, 51);
             this.labelDNF.Name = "labelDNF";
             this.labelDNF.Size = new System.Drawing.Size(29, 13);
             this.labelDNF.TabIndex = 12;
@@ -164,18 +238,22 @@
             // labelDNS
             // 
             this.labelDNS.AutoSize = true;
-            this.labelDNS.Location = new System.Drawing.Point(473, 47);
+            this.labelDNS.Font = new System.Drawing.Font("Constantia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelDNS.ForeColor = System.Drawing.Color.Black;
+            this.labelDNS.Location = new System.Drawing.Point(473, 51);
             this.labelDNS.Name = "labelDNS";
-            this.labelDNS.Size = new System.Drawing.Size(30, 13);
+            this.labelDNS.Size = new System.Drawing.Size(29, 13);
             this.labelDNS.TabIndex = 13;
             this.labelDNS.Text = "DNS";
             // 
             // labelDQ
             // 
             this.labelDQ.AutoSize = true;
-            this.labelDQ.Location = new System.Drawing.Point(507, 47);
+            this.labelDQ.Font = new System.Drawing.Font("Constantia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelDQ.ForeColor = System.Drawing.Color.Black;
+            this.labelDQ.Location = new System.Drawing.Point(507, 51);
             this.labelDQ.Name = "labelDQ";
-            this.labelDQ.Size = new System.Drawing.Size(23, 13);
+            this.labelDQ.Size = new System.Drawing.Size(24, 13);
             this.labelDQ.TabIndex = 14;
             this.labelDQ.Text = "DQ";
             // 
@@ -184,7 +262,7 @@
             this.resultControl1.IsTime = false;
             this.resultControl1.Location = new System.Drawing.Point(7, 63);
             this.resultControl1.Name = "resultControl1";
-            this.resultControl1.NotResult = true;
+            this.resultControl1.NotResult = false;
             this.resultControl1.PlayerName = "";
             this.resultControl1.PlayerPlace = "1";
             this.resultControl1.PlayerResult = "";
@@ -195,6 +273,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.DarkGray;
             this.Controls.Add(this.labelDQ);
             this.Controls.Add(this.labelDNS);
             this.Controls.Add(this.labelDNF);

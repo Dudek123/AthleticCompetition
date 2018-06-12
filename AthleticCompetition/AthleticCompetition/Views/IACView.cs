@@ -19,6 +19,7 @@ namespace AthleticCompetition.Views
         event Func<int, Discipline> GetDiscipline;
         event Func<List<string>> GetDisciplinesNames;
         event Func<int, string, List<string>, List<string>, bool> UpdateDiscipline;
+        event Func<int, bool> DeleteDiscipline;
         
     }
 }

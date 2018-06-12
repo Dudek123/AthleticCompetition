@@ -13,6 +13,7 @@ namespace AthleticCompetition.Controls
 {
     public partial class ResultControl : UserControl
     {
+        #region PROPERTIES
         public string PlayerName { get { return textBoxPlayer.Text.ToString(); } set { textBoxPlayer.Text = value; } }
         public string PlayerResult
         {
@@ -35,32 +36,27 @@ namespace AthleticCompetition.Controls
             {
                 if (value == "DNF" || value == "DNS" || value == "DQ")
                 {
-                    //textBoxResult.Enabled = false;
-                    //timeControl1.Enabled = false;
+                    textBoxResult.Enabled = false;
+                    timeControl1.Enabled = false;
                     textBoxResult.Text = "";
                     timeControl1.Hours = "0";
                     timeControl1.Minutes = "0";
                     timeControl1.Seconds = "0";
                     timeControl1.Hundredths = "0";
+                    NotResult = false;
+
                     if(value == "DNF")
                     {
                         checkBoxDNF.Checked = true;
-                        //checkBoxDNS.Enabled = false;
-                        //checkBoxDQ.Enabled = false;
                     }
                     if (value == "DNS")
                     {
                         checkBoxDNS.Checked = true;
-                        //checkBoxDNF.Enabled = false;
-                        //checkBoxDQ.Enabled = false;
                     }
                     if (value == "DQ")
                     {
                         checkBoxDQ.Checked = true;
-                        //checkBoxDNS.Enabled = false;
-                        //checkBoxDNF.Enabled = false;
                     }
-
                 }
                 else
                 {
@@ -86,14 +82,12 @@ namespace AthleticCompetition.Controls
                         textBoxResult.Visible = true;
                         textBoxResult.Text = value;
                     }
-                        
-
                 }
-
             }
         }
+
         public string PlayerPlace { get { return labelPlace.Text.ToString(); } set { labelPlace.Text = value; } }
-        private bool isTime = false;
+        
         public bool IsTime
         {
             get
@@ -131,28 +125,32 @@ namespace AthleticCompetition.Controls
             }
             set
             {
-                textBoxResult.Text = "";
-                textBoxResult.Enabled = true;
                 checkBoxDNF.Enabled = true;
                 checkBoxDNF.Checked = false;
                 checkBoxDNS.Enabled = true;
                 checkBoxDNS.Checked = false;
                 checkBoxDQ.Enabled = true;
                 checkBoxDQ.Checked = false;
-                timeControl1.Enabled = true;
-                timeControl1.Hours = "0";
-                timeControl1.Minutes = "0";
-                timeControl1.Seconds = "0";
-                timeControl1.Hundredths = "0";
             }
         }
+        #endregion
 
+        #region PRIVATE_FIELDS
+        private bool isTime = false;
+        #endregion
+
+        #region EVENT_HANDLERS
         public EventHandler textBoxResultLeave;
+        #endregion
+
+        #region CONSTRUCTOR
         public ResultControl()
         {
             InitializeComponent();
         }
+        #endregion
 
+        #region PRIVATE_METHODS
         private void textBoxResult_Leave(object sender, EventArgs e)
         {
             if (this.textBoxResultLeave != null)
@@ -170,7 +168,7 @@ namespace AthleticCompetition.Controls
         {
             string content = textBoxPlayer.Text.ToString();
             
-            if(!Regex.Match(content, @"^[A-Z,a-z,ą,ę,ć,ł,ó,ż,ź,ń,ś]+\s[,A-Z,a-z,ś,ą,ę,ć,ł,ó,ż,ź,ń,ś]+$").Success)
+            if(!Regex.Match(content, @"^[A-Z,a-z,ą,Ą,ę,Ę,ć,Ć,ł,Ł,ó,Ó,ż,Ż,ź,Ź,ń,Ń,ś,Ś, ,-]+$").Success)
             {
                 textBoxPlayer.Text = "";
             }
@@ -201,8 +199,7 @@ namespace AthleticCompetition.Controls
                 }
                 else
                     textBoxResult.Enabled = true;
-            }
-            
+            }  
         }
 
         private void checkBoxDNS_CheckedChanged(object sender, EventArgs e)
@@ -238,7 +235,7 @@ namespace AthleticCompetition.Controls
             if (checkBoxDQ.Checked == true)
             {
                 checkBoxDNF.Enabled = false;
-                checkBoxDNS.Enabled = false;
+                checkBoxDNS.Enabled = false;         
 
                 if (timeControl1.Visible == true)
                 {
@@ -261,16 +258,34 @@ namespace AthleticCompetition.Controls
             }
         }
 
-        private void ResultControl_Load(object sender, EventArgs e)
-        {
-            //textBoxResult.Enabled = true;
-        }
-
         public void uncheckCheckBoxes()
         {
             checkBoxDNF.Checked = false;
             checkBoxDNS.Checked = false;
             checkBoxDQ.Checked = false;
         }
+
+        private void textBoxResult_Click(object sender, EventArgs e)
+        {
+            ToolTip tt = new ToolTip();
+            tt.IsBalloon = true;
+            tt.InitialDelay = 0;
+            tt.AutomaticDelay = 0;
+            tt.AutoPopDelay = 0;
+            tt.ShowAlways = true;
+            tt.SetToolTip(textBoxResult, "Podaj liczbę");
+        }
+
+        private void textBoxPlayer_Click(object sender, EventArgs e)
+        {
+            ToolTip tt = new ToolTip();
+            tt.IsBalloon = true;
+            tt.InitialDelay = 0;
+            tt.AutomaticDelay = 0;
+            tt.AutoPopDelay = 0;
+            tt.ShowAlways = true;
+            tt.SetToolTip(textBoxPlayer, "Podaj imię i nazwisko");
+        }
+        #endregion
     }
 }

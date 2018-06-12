@@ -9,8 +9,12 @@ namespace AthleticCompetition.Presenters
 {
     public class ACPresenter
     {
+        #region PRIVATE_FIELDS
         Models.ACModel model;
         Views.IACView view;
+        #endregion
+
+        #region CONSTRUCTOR
         public ACPresenter(Models.ACModel model, Views.IACView view)
         {
             this.model = model;
@@ -24,6 +28,14 @@ namespace AthleticCompetition.Presenters
             view.GetDiscipline += getDiscipline;
             view.GetDisciplinesNames += getDisciplinesNames;
             view.UpdateDiscipline += updateDiscipline;
+            view.DeleteDiscipline += deleteDiscipline;
+        }
+        #endregion
+
+        #region PRIVATE_METHODS
+        private bool deleteDiscipline(int number)
+        {
+            return model.DeleteDiscipline(number);
         }
 
         private bool updateDiscipline(int number, string name, List<string> players, List<string> results)
@@ -70,5 +82,6 @@ namespace AthleticCompetition.Presenters
         {
             return model.SaveDiscipline(name, players, results);
         }
+        #endregion
     }
 }

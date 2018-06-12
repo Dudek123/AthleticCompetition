@@ -40,6 +40,9 @@
             // 
             // numericUpDownHours
             // 
+            this.numericUpDownHours.BackColor = System.Drawing.Color.Gray;
+            this.numericUpDownHours.Font = new System.Drawing.Font("Constantia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.numericUpDownHours.ForeColor = System.Drawing.Color.White;
             this.numericUpDownHours.Location = new System.Drawing.Point(4, 4);
             this.numericUpDownHours.Maximum = new decimal(new int[] {
             5,
@@ -47,11 +50,14 @@
             0,
             0});
             this.numericUpDownHours.Name = "numericUpDownHours";
-            this.numericUpDownHours.Size = new System.Drawing.Size(40, 20);
+            this.numericUpDownHours.Size = new System.Drawing.Size(40, 23);
             this.numericUpDownHours.TabIndex = 0;
             // 
             // numericUpDownMinutes
             // 
+            this.numericUpDownMinutes.BackColor = System.Drawing.Color.Gray;
+            this.numericUpDownMinutes.Font = new System.Drawing.Font("Constantia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.numericUpDownMinutes.ForeColor = System.Drawing.Color.White;
             this.numericUpDownMinutes.Location = new System.Drawing.Point(50, 4);
             this.numericUpDownMinutes.Maximum = new decimal(new int[] {
             59,
@@ -59,11 +65,14 @@
             0,
             0});
             this.numericUpDownMinutes.Name = "numericUpDownMinutes";
-            this.numericUpDownMinutes.Size = new System.Drawing.Size(40, 20);
+            this.numericUpDownMinutes.Size = new System.Drawing.Size(40, 23);
             this.numericUpDownMinutes.TabIndex = 1;
             // 
             // numericUpDownSeconds
             // 
+            this.numericUpDownSeconds.BackColor = System.Drawing.Color.Gray;
+            this.numericUpDownSeconds.Font = new System.Drawing.Font("Constantia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.numericUpDownSeconds.ForeColor = System.Drawing.Color.White;
             this.numericUpDownSeconds.Location = new System.Drawing.Point(96, 4);
             this.numericUpDownSeconds.Maximum = new decimal(new int[] {
             59,
@@ -71,11 +80,14 @@
             0,
             0});
             this.numericUpDownSeconds.Name = "numericUpDownSeconds";
-            this.numericUpDownSeconds.Size = new System.Drawing.Size(40, 20);
+            this.numericUpDownSeconds.Size = new System.Drawing.Size(40, 23);
             this.numericUpDownSeconds.TabIndex = 2;
             // 
             // numericUpDownHundredths
             // 
+            this.numericUpDownHundredths.BackColor = System.Drawing.Color.Gray;
+            this.numericUpDownHundredths.Font = new System.Drawing.Font("Constantia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.numericUpDownHundredths.ForeColor = System.Drawing.Color.White;
             this.numericUpDownHundredths.Location = new System.Drawing.Point(142, 4);
             this.numericUpDownHundredths.Maximum = new decimal(new int[] {
             99,
@@ -83,7 +95,7 @@
             0,
             0});
             this.numericUpDownHundredths.Name = "numericUpDownHundredths";
-            this.numericUpDownHundredths.Size = new System.Drawing.Size(40, 20);
+            this.numericUpDownHundredths.Size = new System.Drawing.Size(40, 23);
             this.numericUpDownHundredths.TabIndex = 3;
             // 
             // TimeControl

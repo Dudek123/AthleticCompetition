@@ -12,6 +12,7 @@ namespace AthleticCompetition.Controls
 {
     public partial class DisciplineControl : UserControl
     {
+        #region PROPERTIES
         public string DisciplineName
         {
             get
@@ -23,8 +24,7 @@ namespace AthleticCompetition.Controls
                 comboBoxDisciplineName.SelectedItem = value;
             }
         }
-
-        private List<string> playersList = new List<string>();
+     
         public List<string> PlayersList
         {
             get
@@ -41,27 +41,18 @@ namespace AthleticCompetition.Controls
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    //try
-                    //{
                     if(i < value.Count)
                     {
                         resultControls[i].Visible = true;
                         resultControls[i].PlayerName = value[i];
                     }
                     else  
-                        resultControls[i].Visible = false;
-                   // }
-                   // catch(Exception)
-                    //{
-                    //    Console.WriteLine("Głupi catch, nie wiem po co xD");
-                   // }
-                    
+                        resultControls[i].Visible = false;   
                 }
                 resultsCounter = value.Count;
             }
         }
 
-        private List<string> playersResults = new List<string>();
         public List<string> PlayersResults
         {
             get
@@ -82,8 +73,7 @@ namespace AthleticCompetition.Controls
                     {
                         for (int k = 0; k < 8; k++)
                         {
-                            resultControls[k].IsTime = true;
-                            
+                            resultControls[k].IsTime = true;    
                         }
                         break;
                     }
@@ -92,16 +82,11 @@ namespace AthleticCompetition.Controls
                         for (int k = 0; k < 8; k++)
                         {
                             resultControls[k].IsTime = false;
-
                         }
-                        break;
-                    }
-                        
+                    }         
                 }
                 for (int i = 0; i < 8; i++)
-                {
-                    //  try
-                    // {
+                {               
                     if (i < value.Count)
                     {
                         resultControls[i].Visible = true;
@@ -109,29 +94,29 @@ namespace AthleticCompetition.Controls
                     }
                     else
                         resultControls[i].Visible = false;
-                    //  }
-                    //  catch(Exception)
-                    //  {
-
-                    //  }
-
-
                 }
             }
         }
+        #endregion
 
+        #region PRIVATE_FIELDS
+        private List<string> playersList = new List<string>();
+        private List<string> playersResults = new List<string>();
         private int resultsCounter;
         private ResultControl[] resultControls = new ResultControl[8];
+        #endregion
 
+        #region EVENT_HANDLERS
         public EventHandler SaveDisciplineButtonClick;
+        #endregion
 
+        #region CONSTRUCTOR
         public DisciplineControl()
         {
             InitializeComponent();
             resultControls[0] = resultControl1;
             resultControls[0].textBoxResultLeave += new EventHandler(Result_Leave);
             
-    
             for(int i = 1; i < 8; i++)
             {
                 ResultControl newResult = new ResultControl();
@@ -147,10 +132,10 @@ namespace AthleticCompetition.Controls
                 this.Height += 35;
             }
             resultsCounter = 1;
-
-
         }
+        #endregion
 
+        #region CONTROLS_METHODS
         private void Result_Leave(object sender, EventArgs e)
         {
             string result = ((ResultControl)sender).PlayerResult;
@@ -163,11 +148,11 @@ namespace AthleticCompetition.Controls
                     ((ResultControl)sender).PlayerResult += " " + comboBoxMeasureUnit.SelectedItem.ToString();
                 else
                     ((ResultControl)sender).PlayerResult = "";
-
-            }
-           
+            }          
         }
+        #endregion
 
+        #region PRIVATE_METHODS
         private void buttonAddPlace_Click(object sender, EventArgs e)
         {
             if(resultsCounter < 8)
@@ -179,7 +164,6 @@ namespace AthleticCompetition.Controls
                 else
                     resultControls[resultsCounter].PlayerResult = "";
                 resultsCounter++;
-
             }
         }
 
@@ -200,29 +184,27 @@ namespace AthleticCompetition.Controls
         private void comboBoxMeasureUnit_SelectedIndexChanged(object sender, EventArgs e)
         {
             for(int i = 0; i < 8; i++)
-            {
-                if(resultControls[i].Visible == true)
-                    resultControls[i].NotResult = false;
+            {          
+                resultControls[i].NotResult = false;
+                resultControls[i].PlayerResult = "";
             }
             
             if (comboBoxMeasureUnit.SelectedIndex == 1 ) 
             {
                 showTimeLabels(true);
-                for (int i = 0; i < resultsCounter; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     resultControls[i].IsTime = true;
                 }
-
             }
             else 
             {
                 showTimeLabels(false);
-                for (int i = 0; i < resultsCounter; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     resultControls[i].IsTime = false;
                 }
             }
-            
         }
 
         private void showTimeLabels(bool x)
@@ -235,32 +217,30 @@ namespace AthleticCompetition.Controls
 
         private void buttonSaveDiscipline_Click(object sender, EventArgs e)
         {
-            if (this.SaveDisciplineButtonClick != null)
-            {
-                this.SaveDisciplineButtonClick(this, e);
-
-                for (int i = 0; i < resultsCounter; i++)
-                {
-                    resultControls[i].NotResult = false;
-                }
-
-                //ClearDiscipline();
-            }
+           if (this.SaveDisciplineButtonClick != null)
+           {
+               this.SaveDisciplineButtonClick(this, e);
+           }               
         }
+        #endregion
 
+        #region PUBLIC_METHODS
         public void ClearDiscipline()
         {
             List<string> lista = new List<string>();
             for(int i = 0; i < resultsCounter; i++)
             {
-                lista.Add("");
-                //resultControls[i].uncheckCheckBoxes();
+                lista.Add("");  
             }
             PlayersList = lista;
             PlayersResults = lista;
+            showTimeLabels(false);
+
+            for (int i = 0; i < resultsCounter; i++)
+            {
+                resultControls[i].NotResult = false;
+            }
         }
-
-     
-
+        #endregion
     }
 }

@@ -40,37 +40,50 @@
             // labelPlace
             // 
             this.labelPlace.AutoSize = true;
-            this.labelPlace.Location = new System.Drawing.Point(6, 8);
+            this.labelPlace.Font = new System.Drawing.Font("Constantia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelPlace.ForeColor = System.Drawing.Color.Black;
+            this.labelPlace.Location = new System.Drawing.Point(7, 6);
             this.labelPlace.Name = "labelPlace";
-            this.labelPlace.Size = new System.Drawing.Size(13, 13);
+            this.labelPlace.Size = new System.Drawing.Size(11, 15);
             this.labelPlace.TabIndex = 0;
             this.labelPlace.Text = "1";
             // 
             // textBoxPlayer
             // 
-            this.textBoxPlayer.Location = new System.Drawing.Point(25, 5);
+            this.textBoxPlayer.BackColor = System.Drawing.Color.Gray;
+            this.textBoxPlayer.Font = new System.Drawing.Font("Constantia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxPlayer.ForeColor = System.Drawing.Color.White;
+            this.textBoxPlayer.Location = new System.Drawing.Point(25, 3);
             this.textBoxPlayer.Name = "textBoxPlayer";
-            this.textBoxPlayer.Size = new System.Drawing.Size(216, 20);
+            this.textBoxPlayer.Size = new System.Drawing.Size(216, 23);
             this.textBoxPlayer.TabIndex = 1;
+            this.textBoxPlayer.Click += new System.EventHandler(this.textBoxPlayer_Click);
             this.textBoxPlayer.Leave += new System.EventHandler(this.textBoxPlayer_Leave);
             // 
             // textBoxResult
             // 
-            this.textBoxResult.Location = new System.Drawing.Point(247, 5);
+            this.textBoxResult.BackColor = System.Drawing.Color.Gray;
+            this.textBoxResult.Font = new System.Drawing.Font("Constantia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxResult.ForeColor = System.Drawing.Color.White;
+            this.textBoxResult.Location = new System.Drawing.Point(247, 3);
             this.textBoxResult.Name = "textBoxResult";
-            this.textBoxResult.Size = new System.Drawing.Size(190, 20);
+            this.textBoxResult.Size = new System.Drawing.Size(190, 23);
             this.textBoxResult.TabIndex = 2;
+            this.textBoxResult.Click += new System.EventHandler(this.textBoxResult_Click);
             this.textBoxResult.Enter += new System.EventHandler(this.textBoxResult_Enter);
             this.textBoxResult.Leave += new System.EventHandler(this.textBoxResult_Leave);
             // 
             // checkBoxDNF
             // 
             this.checkBoxDNF.AutoSize = true;
+            this.checkBoxDNF.BackColor = System.Drawing.SystemColors.Control;
+            this.checkBoxDNF.Font = new System.Drawing.Font("Constantia", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkBoxDNF.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBoxDNF.Location = new System.Drawing.Point(443, 8);
             this.checkBoxDNF.Name = "checkBoxDNF";
             this.checkBoxDNF.Size = new System.Drawing.Size(15, 14);
             this.checkBoxDNF.TabIndex = 4;
-            this.checkBoxDNF.UseVisualStyleBackColor = true;
+            this.checkBoxDNF.UseVisualStyleBackColor = false;
             this.checkBoxDNF.CheckedChanged += new System.EventHandler(this.checkBoxDNF_CheckedChanged);
             // 
             // checkBoxDNS
@@ -95,8 +108,12 @@
             // 
             // timeControl1
             // 
+            this.timeControl1.Hours = "0";
+            this.timeControl1.Hundredths = "0";
             this.timeControl1.Location = new System.Drawing.Point(247, 0);
+            this.timeControl1.Minutes = "0";
             this.timeControl1.Name = "timeControl1";
+            this.timeControl1.Seconds = "0";
             this.timeControl1.Size = new System.Drawing.Size(190, 30);
             this.timeControl1.TabIndex = 3;
             this.timeControl1.Visible = false;
@@ -114,7 +131,6 @@
             this.Controls.Add(this.labelPlace);
             this.Name = "ResultControl";
             this.Size = new System.Drawing.Size(533, 28);
-            this.Load += new System.EventHandler(this.ResultControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

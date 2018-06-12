@@ -12,15 +12,18 @@ namespace AthleticCompetition.Models
 {
     public class ACModel
     {
+        #region PRIVATE_FIELDS
         Competition competition = new Competition();
-        Discipline newDiscipline = new Discipline();
-        Result newResult = new Result();
+        #endregion
 
+        #region CONSTRUCTOR
         public ACModel()
         {
                 
         }
+        #endregion
 
+        #region PUBLIC_METHODS
         public bool SaveDiscipline(string name, List<string> players, List<string> results)
         {
             if (name == null)
@@ -40,7 +43,6 @@ namespace AthleticCompetition.Models
                 if (a == string.Empty)
                     return false;
             }
-
 
             Discipline newDiscipline = new Discipline(name);
             for(int i = 0; i < players.Count; i++)
@@ -97,21 +99,18 @@ namespace AthleticCompetition.Models
                         writer.WriteElementString("PlayerResult", r.PlayerResult);
                         writer.WriteEndElement();
                     }
-
                     writer.WriteEndElement();
                 }
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
             }
-
             return true;
         }
 
         public bool LoadCompetition(string path)
         {
             competition.ClearCompetition();
-
             XmlDocument document = new XmlDocument();
 
             try
@@ -146,9 +145,7 @@ namespace AthleticCompetition.Models
                 {
                     XPathNavigator nav2 = r.SelectSingleNode("Player");
                     XPathNavigator nav3 = r.SelectSingleNode("PlayerResult");
- 
                     Result res = new Result(nav2.Value, nav3.Value);
-
                     disc.AddResult(res);
                 }
                 competition.AddDiscipline(disc);
@@ -213,7 +210,6 @@ namespace AthleticCompetition.Models
                     return false;
             }
 
-
             Discipline newD = new Discipline(name);
             for (int i = 0; i < players.Count; i++)
             {
@@ -226,5 +222,19 @@ namespace AthleticCompetition.Models
 
             return true;
         }
+
+        public bool DeleteDiscipline(int number)
+        {
+            try
+            {
+                competition.Disciplines.Remove(competition.Disciplines[number]);
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+        #endregion
     }
 }

@@ -14,6 +14,7 @@ namespace AthleticCompetition.Views
 {
     public partial class ACView : Form, Views.IACView
     {
+        #region PROPERTIES
         public string CompetitionName { get { return textBoxName.Text.ToString(); } set { textBoxName.Text = value; } }
         public string CompetitionLocation { get { return textBoxLocation.Text.ToString(); } set { textBoxLocation.Text = value; } }
         public string CompetitionDate
@@ -27,16 +28,21 @@ namespace AthleticCompetition.Views
                 dateTimePickerDate.Value = DateTime.Parse(value);
             }
         }
+        #endregion
 
+        #region PRIVATE_FIELDS
         private int currentDiscipline;
+        #endregion
 
-
+        #region CONSTRUCTOR
         public ACView()
         {
             InitializeComponent();
             disciplineControl1.SaveDisciplineButtonClick += new EventHandler(saveDiscipline_Click);
         }
+        #endregion
 
+        #region INTERFACE_METHODS
         public event Func<string, List<string>, List<string>, bool> SaveDiscipline;
         public event Func<string, string, string, bool> SaveCompetition;
         public event Func<string, bool> LoadCompetition;
@@ -46,7 +52,10 @@ namespace AthleticCompetition.Views
         public event Func<int, Discipline> GetDiscipline;
         public event Func<List<string>> GetDisciplinesNames;
         public event Func<int, string, List<string>, List<string>, bool> UpdateDiscipline;
+        public event Func<int, bool> DeleteDiscipline;
+        #endregion
 
+        #region CONTROLS_METHODS
         private void saveDiscipline_Click(object sender, EventArgs e)
         {
             if (radioButtonGenerate.Checked)
@@ -59,18 +68,50 @@ namespace AthleticCompetition.Views
                 else
                     MessageBox.Show("Brak wybranej dyscypliny, brak zawodnika lub brak wyniku", "Błąd danych", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            if(radioButtonEdit.Checked)
+            if (radioButtonEdit.Checked)
             {
-                if (UpdateDiscipline(currentDiscipline, disciplineControl1.Name, disciplineControl1.PlayersList, disciplineControl1.PlayersResults))
-                {
-                    MessageBox.Show("Dyscyplina zaktualizowana pomyślnie", "Aktualizacja pomyślna", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (MessageBox.Show("Jeśli chcesz dodać nową dyscyplinę wybierz TAK. Jeśli chcesz zmienić dyscyplinę wybierz NIE.", "Wybór", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                { //update
+                    if (UpdateDiscipline(currentDiscipline, disciplineControl1.DisciplineName, disciplineControl1.PlayersList, disciplineControl1.PlayersResults))
+                    {
+                        MessageBox.Show("Dyscyplina zaktualizowana pomyślnie", "Aktualizacja pomyślna", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        LoadDiscipline(listBoxDisciplines.SelectedIndex);
+                        var list = GetDisciplinesNames();
+                        listBoxDisciplines.Items.Clear();
+
+                        foreach (var d in list)
+                        {
+                            listBoxDisciplines.Items.Add(d);
+                        }
+                    }
+                    else
+                        MessageBox.Show("Brak wybranej dyscypliny, brak zawodnika lub brak wyniku", "Błąd danych", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
-                    MessageBox.Show("Brak wybranej dyscypliny, brak zawodnika lub brak wyniku", "Błąd danych", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                { //nowa
+                    if (SaveDiscipline(disciplineControl1.DisciplineName, disciplineControl1.PlayersList, disciplineControl1.PlayersResults))
+                    {
+                        disciplineControl1.ClearDiscipline();
+
+                        var list = GetDisciplinesNames();
+                        listBoxDisciplines.Items.Clear();
+
+                        foreach (var d in list)
+                        {
+                            listBoxDisciplines.Items.Add(d);
+                        }
+
+                        MessageBox.Show("Dyscyplina zapisana pomyślnie do bazy", "Zapisano pomyślnie", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                        MessageBox.Show("Brak wybranej dyscypliny, brak zawodnika lub brak wyniku", "Błąd danych", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-
         }
+        #endregion
 
+        #region PRIVATE_METHODS
         private void buttonSaveCompetition_Click(object sender, EventArgs e)
         {
             if (SaveCompetition(CompetitionName, CompetitionLocation, CompetitionDate))
@@ -81,12 +122,14 @@ namespace AthleticCompetition.Views
                 MessageBox.Show("Brak nazwy, miejsca lub dodanych dyscyplin", "Błąd danych", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-  
         private void comboBoxCompetitions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(LoadCompetition(Path.Combine(Directory.GetCurrentDirectory(),comboBoxCompetitions.SelectedItem.ToString())))
+            if (comboBoxCompetitions.SelectedIndex != -1)
             {
-                Console.WriteLine("wczytałem sobie");
+                if (LoadCompetition(Path.Combine(Directory.GetCurrentDirectory(), comboBoxCompetitions.SelectedItem.ToString())))
+                {
+                    Console.WriteLine("wczytałem sobie");
+                }
             }
         }
 
@@ -102,23 +145,27 @@ namespace AthleticCompetition.Views
 
         private void buttonLoadCompetition_Click(object sender, EventArgs e)
         {
-            var compInfos = GetCompetitionInfos();
-            CompetitionName = compInfos[0];
-            CompetitionLocation = compInfos[1];
-            CompetitionDate = compInfos[2];
-
-            var list = GetDisciplinesNames();
-
-            listBoxDisciplines.Items.Clear();
-
-            foreach(var d in list)
+            if (comboBoxCompetitions.SelectedIndex != -1)
             {
-                listBoxDisciplines.Items.Add(d);
+                var compInfos = GetCompetitionInfos();
+                CompetitionName = compInfos[0];
+                CompetitionLocation = compInfos[1];
+                CompetitionDate = compInfos[2];
+
+                var list = GetDisciplinesNames();
+                listBoxDisciplines.Items.Clear();
+
+                foreach (var d in list)
+                {
+                    listBoxDisciplines.Items.Add(d);
+                }
+
+                if (LoadDiscipline(0))
+                {
+                    currentDiscipline = 0;
+                    listBoxDisciplines.SelectedIndex = 0;
+                }                  
             }
-
-            if (LoadDiscipline(0))
-                currentDiscipline = 0;
-
         }
 
         private bool LoadDiscipline(int number)
@@ -128,18 +175,17 @@ namespace AthleticCompetition.Views
             {
                 disc = GetDiscipline(number);
             }
-            catch(Exception)
+            catch (Exception)
             {
-                MessageBox.Show("To jest pierwsze lub ostanie pytanie, wybierz inne", "Brak pytania", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            
-            disciplineControl1.DisciplineName = disc.DisciplineName;
 
+            disciplineControl1.DisciplineName = disc.DisciplineName;
             var results = disc.Results;
 
             List<string> ps = new List<string>();
             List<string> rs = new List<string>();
+
             currentDiscipline = number;
 
             foreach (var r in results)
@@ -154,67 +200,76 @@ namespace AthleticCompetition.Views
             return true;
         }
 
-
-        private void radioButtonGenerate_CheckedChanged(object sender, EventArgs e)
-        {
-            if(radioButtonGenerate.Checked)
-            {
-                showEdit(false);
-                ClearCompetition();
-            }
-        }
-
-        private void radioButtonEdit_CheckedChanged(object sender, EventArgs e)
-        {
-            if(radioButtonEdit.Checked)
-            {
-                showEdit(true);
-                ClearCompetition();
-            }
-        }
-
         private void showEdit(bool a)
         {
             comboBoxCompetitions.Visible = a;
             buttonLoadCompetition.Visible = a;
             listBoxDisciplines.Visible = a;
-        }
-
-        private void radioButtonShow_CheckedChanged(object sender, EventArgs e)
-        {
-            if(radioButtonShow.Checked)
-            {
-                showEdit(false);
-                ClearCompetition();
-            }
-        }
-
-        private void buttonPrevDisc_Click(object sender, EventArgs e)
-        {
-            int c = currentDiscipline - 1;
-            if (LoadDiscipline(c))
-                currentDiscipline = c;
-       
-            
-        }
-
-        private void buttonNextDisc_Click(object sender, EventArgs e)
-        {
-            int c = currentDiscipline + 1;
-            if (LoadDiscipline(c))
-                currentDiscipline = c;
+            buttonDeleteDiscipline.Visible = a;
+            textBoxName.Enabled = !a;
         }
 
         private void listBoxDisciplines_DoubleClick(object sender, EventArgs e)
         {
-            if(listBoxDisciplines.SelectedIndex != -1)
+            if (listBoxDisciplines.SelectedIndex != -1)
             {
-                //disciplineControl1.ClearDiscipline();
-                if(LoadDiscipline(listBoxDisciplines.SelectedIndex))
+                if (!LoadDiscipline(listBoxDisciplines.SelectedIndex))
                 {
-
+                    MessageBox.Show("Błąd zapisu");
                 }
             }
         }
+
+        private void buttonDeleteDiscipline_Click(object sender, EventArgs e)
+        {
+            if (listBoxDisciplines.SelectedIndex != -1)
+            {
+                if (DeleteDiscipline(listBoxDisciplines.SelectedIndex))
+                {
+                    listBoxDisciplines.Items.Remove(listBoxDisciplines.SelectedItem);
+                    MessageBox.Show("Dyscyplina usunięta pomyślnie", "Usunięcie pomyślna", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void radioButtonGenerate_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Czy na pewno chcesz wejść w tryb generowania? Potwierdzenie wyczyści niezapisane dane w pliku XML", "Czy na pewno?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                showEdit(false);
+                CompetitionName = "";
+                CompetitionLocation = "";
+                CompetitionDate = DateTime.Today.ToString();
+                disciplineControl1.ClearDiscipline();
+                ClearCompetition();
+                radioButtonGenerate.Checked = true;    
+            }
+            else
+                radioButtonEdit.Checked = true;
+        }
+
+        private void radioButtonEdit_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Czy na pewno chcesz wejść w tryb edytowania? Potwierdzenie wyczyści niezapisane dane w pliku XML", "Czy na pewno?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                showEdit(true);
+                CompetitionName = "";
+                CompetitionLocation = "";
+                CompetitionDate = DateTime.Today.ToString();
+                disciplineControl1.ClearDiscipline();
+                ClearCompetition();
+                listBoxDisciplines.Items.Clear();
+                comboBoxCompetitions.SelectedIndex = -1;
+                radioButtonEdit.Checked = true;             
+            }
+            else
+                radioButtonGenerate.Checked = true;
+        }
+
+        private void ACView_Load(object sender, EventArgs e)
+        {
+            dateTimePickerDate.Value = DateTime.Today;
+        }
+        #endregion
     }
 }

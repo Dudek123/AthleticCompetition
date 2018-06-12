@@ -8,12 +8,18 @@ namespace AthleticCompetition.Classes
 {
     public class Competition
     {
+        #region PUBLIC_FIELDS
         public string CompetitionName { get; set; }
         public string CompetitionLocation { get; set; }
         public string CompetitionDate { get; set; }
-        private List<Discipline> disciplines = new List<Discipline>();
         public List<Discipline> Disciplines { get { return disciplines; } set { disciplines = value; } }
+        #endregion
 
+        #region PRIVATE_FIELDS
+        private List<Discipline> disciplines = new List<Discipline>();
+        #endregion
+
+        #region CONSTRUCTORS
         public Competition(string compName, string compLocation, string compDate)
         {
             CompetitionName = compName;
@@ -25,7 +31,9 @@ namespace AthleticCompetition.Classes
         {
 
         }
+        #endregion
 
+        #region PUBLIC_METHODS
         public void AddDiscipline(Discipline discipline)
         {
             disciplines.Add(discipline);
@@ -43,5 +51,6 @@ namespace AthleticCompetition.Classes
         {
             return disciplines[number];
         }
+        #endregion
     }
 }
